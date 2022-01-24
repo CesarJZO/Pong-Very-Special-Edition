@@ -7,8 +7,8 @@ public class Ball : MonoBehaviour
     Rigidbody2D rb;
     void Awake()
     {
-        int x = 1;
-        float y = Random.Range(-1, 1);
+        float x = Random.Range(0, 2) == 0 ? -1 : 1;
+        float y = Random.Range(-1f, 1f);
         direction = new Vector2(x, y);
         rb = GetComponent<Rigidbody2D>();
     }
@@ -16,13 +16,5 @@ public class Ball : MonoBehaviour
     void Start()
     {
         rb.AddForce(direction * speed, ForceMode2D.Impulse);
-    }
-
-    void Update()
-    {
-        if (Input.GetButtonDown("Start"))
-        {
-            Invoke("Start", 0);
-        }
     }
 }
