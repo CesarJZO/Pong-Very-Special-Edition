@@ -3,13 +3,15 @@ using UnityEngine.InputSystem;
 
 public class Paddle : MonoBehaviour
 {
+    [SerializeField] float smoothTime;
     [SerializeField] float height;
     public float speed;
-
     PlayerInput playerInput;
     InputAction moveAction;
     Rigidbody2D rb;
-    Vector2 bounds;
+    Vector2 direction;
+    private Vector2 velocity;
+
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -18,14 +20,14 @@ public class Paddle : MonoBehaviour
         // screenWidth = Camera.main.orthographicSize;
         // Debug.Log(Camera.main.scaledPixelWidth);
         rb = GetComponent<Rigidbody2D>();
-        bounds = new Vector2();
+        direction = new Vector2();
     }
 
     void FixedUpdate()
     {
-        rb.velocity = moveAction.ReadValue<Vector2>() * speed;
-        bounds.x = transform.position.x;
-        bounds.y = Mathf.Clamp(transform.position.y, height / -2, height / 2);
-        transform.position = bounds;
+        Vector2 target = (moveAction.ReadValue<Vector2>() * speed) + (Vector2)transform.position;
+        direction = Vector2.SmoothDamp(transform.position, target, ref velocity, smoothTime);
+        direction.y = Mathf.Clamp(direction.y, height / -2, height / 2);
+        rb.MovePosition(direction);
     }
 }
