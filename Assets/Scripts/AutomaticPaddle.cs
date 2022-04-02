@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AutomaticPaddle : MonoBehaviour
 {
+    // TODO: Add delay to the paddle, start following after the player hit the ball, random speed
     [SerializeField] GameObject ball;
     [SerializeField] float height;
     Vector2 bounds;

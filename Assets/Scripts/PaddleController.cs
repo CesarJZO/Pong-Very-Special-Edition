@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Paddle : MonoBehaviour
+public class PaddleController : MonoBehaviour
 {
     [SerializeField] float smoothTime;
     [SerializeField] float height;

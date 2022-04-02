@@ -9,7 +9,6 @@ public class MainMenu : MonoBehaviour
     {
         if (!ball.activeSelf && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            Debug.Log("Activating ball");
             ball.SetActive(true);
         }
     }
