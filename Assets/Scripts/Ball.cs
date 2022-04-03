@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public float speed;
+    public float speedMultiplier;
+    [SerializeField] Transform leftPaddle;
+    [SerializeField] Transform rightPaddle;
+    float speed;
     Vector2 direction;
     Rigidbody2D rb;
     void Awake()
@@ -12,14 +15,16 @@ public class Ball : MonoBehaviour
 
     void OnEnable()
     {
+        speed = Vector2.Distance(leftPaddle.position, rightPaddle.position);
         SetRandomDirection();
-        rb.AddForce(direction * speed, ForceMode2D.Impulse);
+        rb.AddForce(direction * speed * speedMultiplier, ForceMode2D.Impulse);
+        Debug.Log($"Speed: {speed}, Multi: {speed * speedMultiplier}");
     }
 
     void SetRandomDirection()
     {
         float x = Random.Range(0, 2) == 0 ? -1 : 1;
         float y = Random.Range(-1f, 1f);
-        direction = new Vector2(x, y);
+        direction = new Vector2(x, y).normalized;
     }
 }

@@ -5,6 +5,7 @@ public class PaddleController : MonoBehaviour
 {
     [SerializeField] float smoothTime;
     [SerializeField] float height;
+    [SerializeField] Side side;
     public float speed;
     PlayerInput playerInput;
     InputAction moveAction;
@@ -29,5 +30,12 @@ public class PaddleController : MonoBehaviour
         direction = Vector2.SmoothDamp(transform.position, target, ref velocity, smoothTime);
         direction.y = Mathf.Clamp(direction.y, height / -2, height / 2);
         rb.MovePosition(direction);
+    }
+
+    public void SetPosition(float horizontal)
+    {
+        Vector3 newPosition = transform.position;
+        newPosition.x = side == Side.Left ? -horizontal + 18.5f : horizontal - 18.5f;
+        transform.position = newPosition;
     }
 }

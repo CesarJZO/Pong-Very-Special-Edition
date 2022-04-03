@@ -168,7 +168,11 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fddc4fda-5aeb-45b4-a493-c7a4370a2d9d
+    m_ActionName: Paddle/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Paddle
@@ -215,9 +219,9 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 5
@@ -302,6 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smoothTime: 0.5
   height: 64
+  side: 0
   speed: 50
 --- !u!1 &96556763
 GameObject:
@@ -425,7 +430,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa2dee7599aef34ea05bfb70a5e931a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speedMultiplier: 0.5
+  leftPaddle: {fileID: 18174623}
+  rightPaddle: {fileID: 1674597210}
 --- !u!58 &245294916
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -777,7 +784,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041018791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 66, y: 0, z: 0}
+  m_LocalPosition: {x: 64, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -796,7 +803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf83f2ac8445f2a4e84d71c3bff1b5a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitingTime: 0.5
+  disableTime: 0.5
+  side: 1
   OnMissBall:
     m_PersistentCalls:
       m_Calls:
@@ -825,7 +833,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 1.5, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1080,6 +1088,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1487491458}
+  - component: {fileID: 1487491459}
   - component: {fileID: 1487491457}
   - component: {fileID: 1487491456}
   m_Layer: 0
@@ -1158,6 +1167,69 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1487491459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487491455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee9b59d656b71043a72b39eca793b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSizeDefined:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1510449879}
+        m_TargetAssemblyTypeName: Edge, Assembly-CSharp
+        m_MethodName: SetPosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1041018794}
+        m_TargetAssemblyTypeName: Edge, Assembly-CSharp
+        m_MethodName: SetPosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 18174624}
+        m_TargetAssemblyTypeName: PaddleController, Assembly-CSharp
+        m_MethodName: SetPosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1674597208}
+        m_TargetAssemblyTypeName: AutomaticPaddle, Assembly-CSharp
+        m_MethodName: SetPosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1510449876
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,7 +1256,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510449876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -66, y: 0, z: 0}
+  m_LocalPosition: {x: -64, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1203,7 +1275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf83f2ac8445f2a4e84d71c3bff1b5a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitingTime: 0.5
+  disableTime: 0.5
+  side: 0
   OnMissBall:
     m_PersistentCalls:
       m_Calls:
@@ -1232,7 +1305,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -1.5, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1419,6 +1492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 245294914}
   height: 64
+  side: 1
 --- !u!212 &1674597209
 SpriteRenderer:
   m_ObjectHideFlags: 0
