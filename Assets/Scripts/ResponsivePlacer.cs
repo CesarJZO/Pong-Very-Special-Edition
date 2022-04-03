@@ -21,6 +21,4 @@ public class ResponsivePlacer : MonoBehaviour
             c.size = new Vector2(horizontal * 2, c.size.y);
         OnSizeDefined?.Invoke(horizontal);
     }
-
-
 }

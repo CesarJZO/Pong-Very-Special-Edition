@@ -18,7 +18,6 @@ public class Ball : MonoBehaviour
         speed = Vector2.Distance(leftPaddle.position, rightPaddle.position);
         SetRandomDirection();
         rb.AddForce(direction * speed * speedMultiplier, ForceMode2D.Impulse);
-        Debug.Log($"Speed: {speed}, Multi: {speed * speedMultiplier}");
     }
 
     void SetRandomDirection()

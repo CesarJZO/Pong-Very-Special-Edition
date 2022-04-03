@@ -26,8 +26,25 @@ public class PaddleController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector2 target = (moveAction.ReadValue<Vector2>() * speed) + (Vector2)transform.position;
-        direction = Vector2.SmoothDamp(transform.position, target, ref velocity, smoothTime);
+        Vector2 target = Vector2.zero;
+
+        if (playerInput.currentControlScheme == "Physical")
+        {
+            target = (moveAction.ReadValue<Vector2>() * speed) + (Vector2)transform.position;
+            direction = Vector2.SmoothDamp(rb.position, target, ref velocity, smoothTime);
+
+        }
+        else if (playerInput.currentControlScheme == "Touch")
+        {
+            Vector3 screenCoordinates = new Vector3(
+                moveAction.ReadValue<Vector2>().x, moveAction.ReadValue<Vector2>().y, Camera.main.nearClipPlane
+            );
+            Vector3 worldCoordinates = Camera.main.ScreenToWorldPoint(screenCoordinates);
+            worldCoordinates.z = 0;
+            target = worldCoordinates;
+            direction = Vector2.SmoothDamp(rb.position, target, ref velocity, smoothTime / 2);
+        }
+
         direction.y = Mathf.Clamp(direction.y, height / -2, height / 2);
         rb.MovePosition(direction);
     }
